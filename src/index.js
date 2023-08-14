@@ -7,13 +7,15 @@ const userRoute = require("./routes/user")
 const app = express()
 
 const PORT = 3000
+
+app.use(express.json())
  
 app.use(cors({ exposedHeaders: ["x-total-count"]}))
 
-app.use("/post", postRoute)
-app.use("/user", userRoute)
+app.use("/posts", postRoute)
+app.use("/users", userRoute)
 
-app.get("*", (req, res) => {
+app.all("*", (req, res) => {
     res.status(404).json({
         message: "Not found"
     })
