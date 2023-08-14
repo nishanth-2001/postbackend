@@ -1,5 +1,5 @@
 const express = require("express");
-const { validateAndGetPaginationData } = require("../utils/validator");
+const { validateAndGetPaginationData } = require("../utils/validator_post");
 
 const router = express.Router();
 

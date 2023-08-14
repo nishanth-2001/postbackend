@@ -1,4 +1,5 @@
 const express = require("express");
+const { validateAndGetPaginationData } = require("../utils/validator_user");
 
 const router = express.Router();
 
@@ -236,22 +237,24 @@ const userData = [
 ];
 
 router.get("/", (req, res) => {
-  let start = Number(req.query._start);
-  let limit = Number(req.query._limit);
+  const inputLimit = req.query._limit
+  const inputStart = req.query._start
 
-  if (isNaN(start) && isNaN(limit)) {
-    return res.status(404).json({
-      message: "error",
-    });
-  } else if (isNaN(start)) {
-    start = 0;
-  } else if (isNaN(limit)) {
-    limit = 3;
+  const {limit, start, errMsg} = validateAndGetPaginationData
+  if (errMsg) {
+    return res.status(400).json({ message: errMsg})
   }
+
+
 
   const returnData = userData.slice(start, start + limit);
   res.setHeader("x-total-count", userData.length);
   res.json(returnData);
 });
+
+
+
+ 
+
 
 module.exports = router;

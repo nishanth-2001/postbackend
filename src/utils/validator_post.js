@@ -10,7 +10,7 @@ if (inputLimit !== undefined) {
         returnObj.errMsg = "Invalid Limit"
         return returnObj
     } else {
-        returnObj.limt = Math.floor(Number(inputLimit))
+        returnObj.limit = Math.floor(Number(inputLimit))
     }
 }
 if (inputStart !== undefined) {
