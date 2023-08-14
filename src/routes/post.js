@@ -67,13 +67,32 @@ const postData = [
 ];
 
 router.get("/", (req, res) => {
-    const start = Number(req.query._start)
-    const limit = Number(req.query._limit)
+  let start = Number(req.query._start);
+  let limit = Number(req.query._limit);
 
-     
-    const returnData = postData.slice(start, start+limit)
-    res.setHeader("x-total-count", postData.length)
-    res.json(returnData);
+  if ((start!==start)&&(limit!==limit)) {
+    res.status(404).json({
+      message: "error"
+  })
+  } else if (start!==start) {
+    start = 0
+  } else if (limit!==limit) {
+    limit = 3
+  }
+
+  // if (isNaN(start) && isNaN(limit)) {
+  //   return res.status(404).json({
+  //     message: "error",
+  //   });
+  // } else if (isNaN(start)) {
+  //   start = 0;
+  // } else if (isNaN(limit)) {
+  //   limit = 3;
+  // }
+
+  const returnData = postData.slice(start, start + limit);
+  res.setHeader("x-total-count", postData.length);
+  res.json(returnData);
 });
 
-module.exports = router
+module.exports = router;

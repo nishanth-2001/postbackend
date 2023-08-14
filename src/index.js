@@ -10,8 +10,8 @@ const PORT = 3000
  
 app.use(cors({ exposedHeaders: ["x-total-count"]}))
 
-app.use("/posts", postRoute)
-app.use("/users", userRoute)
+app.use("/post", postRoute)
+app.use("/user", userRoute)
 
 app.get("*", (req, res) => {
     res.status(404).json({
