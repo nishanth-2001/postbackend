@@ -1,5 +1,5 @@
 const express = require("express");
-const { validateAndGetPaginationData } = require("../utils/validator_post");
+const { validateAndGetPaginationPostData, validateString } = require("../utils/validator_post");
 
 const router = express.Router();
 
@@ -71,7 +71,7 @@ router.get("/", (req, res) => {
   const inputStart = req.query._start
   const inputLimit = req.query._limit
  
-  const {limit, start, errMsg} = validateAndGetPaginationData(inputLimit, inputStart)
+  const {limit, start, errMsg} = validateAndGetPaginationPostData(inputLimit, inputStart)
   if (errMsg) {
     return res.status(400).json({ message: errMsg})
   }
@@ -99,6 +99,18 @@ router.post("/", (req, res)=>{
   const { title, body } = req.body//title & body valid string and not emptty
   // const id = crypto.randomUUID()
   
+const isValidTitle = validateString(title)
+if (!isValidTitle) {
+  return res.status(400).json({ message: "invalid title"})
+}
+const isValidBody = validateString(body)
+if (!isValidBody) {
+  return res.status(400).json({ message: "invalid body"})
+}
+  
+ 
+
+
   const id = postData.length + 1;
   const dataToBeAdded = {
     userId: 1,

@@ -1,5 +1,5 @@
 const express = require("express");
-const { validateAndGetPaginationData } = require("../utils/validator_user");
+const { validateAndGetPaginationUserData } = require("../utils/validator_user");
 
 const router = express.Router();
 
@@ -240,7 +240,7 @@ router.get("/", (req, res) => {
   const inputLimit = req.query._limit
   const inputStart = req.query._start
 
-  const {limit, start, errMsg} = validateAndGetPaginationData
+  const {limit, start, errMsg} = validateAndGetPaginationUserData
   if (errMsg) {
     return res.status(400).json({ message: errMsg})
   }
